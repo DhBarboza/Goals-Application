@@ -54,6 +54,15 @@ app.get('/metas', async (req, res) => {
 });
 
 app.post('/metas', async (req, res) => {
+
+    await sleep(3000);
+
+    function sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
     await Meta.create(req.body, (error) => {
         if (error) return res.status(400).json({
             error: true,
@@ -62,7 +71,7 @@ app.post('/metas', async (req, res) => {
     });
     return res.json({
         error: false,
-        messge: "Meta cadastrada com sucesso!"
+        message: "Meta cadastrada com sucesso!"
     })
 });
 

@@ -1,6 +1,18 @@
-function HomePage() {
-    return <div>Welcome to Next.js!</div>
-};
+function HomePage({ data }) {
+    return (
+        <>
+            <h1>Minhas Metas!</h1>
+            {data.metas.map(meta => (
+                <div key="{meta.id}">
+                    <h2>{meta.name}</h2>
+                    <p>{meta.description}</p>
+                    <p>{meta.status}</p>
+                    <hr />
+                </div>
+            ))}
+        </>
+    );
+}
 
 // Objeto executado no servidor e após ser executado, servidor retorna HTML:
 export async function getServerSideProps() {
