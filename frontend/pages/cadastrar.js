@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
 
+// Import Componente:
+import Menu from '../components/Navbar';
+
+// Imports do Bootstrap:
+import { Jumbotron, Container, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap'
+
 function Cadastrar() {
 
     //Adicionando estado aos copmponentes da função, contendo uma váriavel com estado atual(meta) e uma função que o atualiza(setMeta):
@@ -60,25 +66,50 @@ function Cadastrar() {
 
     return (
         <>
-            <h1>Cadastrar sua Meta!</h1><hr />
+            <Menu />
+            <Jumbotron fluid className="form">
+                <style>
+                    {
+                        `.form {
+                            background-color: #4169E1;
+                            color: #7FFFD4;
+                            padding-top: 30px;
+                            padding-bottom: 157px;
+                            margin-bottom: 0rem !important;
+                        }`
+                    }
+                </style>
 
-            {response.type === 'error' ? <p>{response.message}</p> : ""}
-            {response.type === 'success' ? <p>{response.message}</p> : ""}
+                    <Container>
+                        <h1 className="display-4 text-center">Cadastrar sua Meta</h1><hr />
 
-            <form onSubmit={sendMeta}>
-                <label>Nome</label>
-                <input type="text" name="name" id="name" placeholder="Título da Meta" onChange={onInput}></input><br/><br/>
+                        {response.type === 'error' ? <Alert color="danger">{response.message}</Alert> : ""}
+                        {response.type === 'success' ? <Alert color="success">{response.message}</Alert> : ""}
 
-                <label>Descrição</label>
-                <input type="text" name="description" id="description" placeholder="Descrição" onChange={onInput}></input><br/><br/>
+                        <Form onSubmit={sendMeta}>
 
-                <label>Status</label>
-                <input type="text" name="status" id="status" placeholder="Status" onChange={onInput}></input><br/><br/>
+                            <FormGroup>
+                                <Label for="name">Nome</Label>
+                                <Input type="text" name="name" id="name" placeholder="Título da Meta" onChange={onInput}/>
+                            </FormGroup>
 
-                {response.formSave ? <button type="submit" disabled>Enviando...</button> :
-                <button type="submit">Cadastrar</button>}
+                            <FormGroup>
+                                <Label for="descripition">Descrição</Label>
+                                <Input type="textarea" name="descripition" id="descripition" placeholder="Descrição" onChange={onInput}/>
+                            </FormGroup>
+                            
+                            <FormGroup>
+                                <Label for="status">Status</Label>
+                                <Input type="text" name="status" id="status" placeholder="Status" onChange={onInput}/>
+                            </FormGroup>
 
-            </form>
+
+                            {response.formSave ? <Button type="submit" color="danger" disabled>Enviando...</Button> :
+                            <Button type="submit" outline color="warning">Cadastrar</Button>}
+
+                        </Form>
+                    </Container>
+            </Jumbotron>
         </>
     );
 }
